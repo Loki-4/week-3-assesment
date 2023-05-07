@@ -1,0 +1,64 @@
+QUESTION--1
+---------------
+create database therapy;
+create table doctor(doc_id int primary key,doc_name varchar(45) not null,specialization varchar(45) not null,sal int not null);
+insert into doctor values(1,"ravi","heart",30000),(2,"seena","kidney",45000),(3,"latha","eyes",65000),(4,"neha","skin",43000);
+
+create table patient(pat_id int primary key,pat_name varchar(45)not null,pat_problem varchar(45) not null);
+insert into patient values(101,"loki","eye"),(102,"sana","eye"),(103,"vamshi","heart"),(104,"sid","skin"),(105,"priya","kidney");
+
+create table appointment(patient_id int primary key,doctor_id int not null,app_date date not null);
+insert into appointment values(101,3,"2023-6-23"),(102,3,"2023-6-26"),(103,1,"2023-7-21"),(104,4,"2023-5-22"),(105,2,"2023-4-23");
+
+create table review(patient_id int primary key,doctor_id int not null,review varchar(45) not null);
+insert into review values(101,3,"good"),(102,3,"better"),(103,1,"amazing"),(104,4,"not bad"),(105,2,"outstanding");
+
+QUETION --2
+-------------
+create table contact(id int primary key,email varchar(45) not null,fname varchar(45) not null,
+lname varchar(45) not null,company varchar(45) not null,active_flag int not null,opt_out int not null);
+insert into contact values
+(123,"a@a.com","Kian","Seth","ABC",1,1),
+(133,"b@a.com","Neha","Seth","ABC",1,0),
+(234,"c@c.com","Puru","Malik","CDF",0,0),
+(342,"d@d.com","Sid","Maan","TEG",1,0);
+
+-- Select all columns from the contact table where the active flag is 1
+select * from contact where active_flag = 1;
+
+-- Deactivate contacts who are opted out 
+delete from contact where opt_out=0;
+
+-- Delete all the contacts who have the company name as ‘ABC’
+delete from contact where company="ABC";
+
+-- Insert a new row with id as 658, name as ‘mili’, email as ‘mili@gmail.com’, the company as ‘DGH’, active flag as 1, opt-out flag as 1
+insert into contact values(658,"milli@gmail.com","milli","seth","DGH",1,1);
+
+-- Pull out the unique values of the company column 
+select distinct company from contact;
+
+-- Update name “mili” to “niti”.
+update contact set fname="niti" where id=658;
+
+select * from contact;
+
+QUETION--3
+-----------
+create table customer(cus_id int primary key,name varchar(45),city varchar(34) not null,grade int,id int);
+insert into customer values(101,"loki","hyderabad",89,5001),
+(102,"ravi","bnglr",67,5002),
+(103,"raju","chennai",88,5003),
+(104,"shanthi","sri satya",78,5004),
+(105,"seena","atp",87,5005),
+(106,"raghu","badwel",67,5002);
+
+ create table salesman(
+id int primary key,name varchar(45) not null, city varchar(40) not null, commision float not null);
+insert into salesman values(5001,"james hoog","new york",0.15);
+insert into salesman values(5002,"nail knite","paris",0.13);
+insert into salesman values(5003,"pit alex","londen",0.11);
+insert into salesman values(5004,"mc lyon","paris",0.14);
+insert into salesman values(5005,"paul adam","rome",0.13);
+
+select c.name,c.city,c.grade,s.city from customer c join salesman s on c.id=s.id where c.grade>50 order by c.cus_id  asc;
